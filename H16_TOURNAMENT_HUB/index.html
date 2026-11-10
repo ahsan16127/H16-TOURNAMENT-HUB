@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b14">
+  <title>H16 TOURNAMENT HUB | Competitive Gaming</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <header class="topbar">
+    <a class="brand" href="#" data-view="home"><span class="brand-mark">H<span>16</span></span><span class="brand-name">TOURNAMENT <b>HUB</b></span></a>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Toggle menu">☰</button>
+    <nav id="mainNav">
+      <a href="#home" data-view="home" class="active">Home</a>
+      <a href="#guilds" data-view="guilds">Guilds</a>
+      <a href="#tournaments" data-view="tournaments">Tournaments</a>
+      <a href="#leaderboard" data-view="leaderboard">Leaderboard</a>
+      <a href="#hall" data-view="hall">Hall of Fame</a>
+    </nav>
+    <div class="top-actions">
+      <span id="userLabel" class="user-label"></span>
+      <button class="btn btn-ghost" id="loginBtn">Log in</button>
+      <button class="btn btn-primary" id="signupBtn">Join Hub <span>↗</span></button>
+      <button class="btn btn-ghost hidden" id="logoutBtn">Log out</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="view active" id="view-home">
+      <div class="hero wrap">
+        <div class="hero-copy">
+          <div class="eyebrow"><i></i> THE NEXT LEVEL OF COMPETITION</div>
+          <h1>ENTER THE ARENA.<br><span>OWN YOUR LEGACY.</span></h1>
+          <p class="hero-lead">The home of competitive guild battles. Build your squad, challenge rivals and climb the H16 rankings.</p>
+          <div class="hero-buttons">
+            <button class="btn btn-primary btn-large" data-action="join">GET STARTED <span>↗</span></button>
+            <button class="btn btn-outline btn-large" data-view="tournaments">EXPLORE TOURNAMENTS</button>
+          </div>
+          <div class="hero-proof"><div class="avatar-stack"><b>H</b><b>16</b><b>GG</b></div><span><strong>ONE HUB.</strong> EVERY BATTLE MATTERS.</span></div>
+        </div>
+        <div class="hero-art">
+          <div class="art-ring ring-a"></div><div class="art-ring ring-b"></div>
+          <div class="hero-emblem"><span>H</span><strong>16</strong><small>TOURNAMENT HUB</small></div>
+          <div class="floating-tag tag-top"><span class="pulse"></span> LIVE COMPETITION</div>
+          <div class="floating-tag tag-bottom"><small>YOUR NEXT MATCH</small><b>STARTS HERE <span>↗</span></b></div>
+          <div class="art-grid"></div>
+        </div>
+      </div>
+      <div class="wrap stats-strip">
+        <div><strong id="statGuilds">—</strong><span>REGISTERED GUILDS</span></div>
+        <div><strong id="statTournaments">—</strong><span>TOURNAMENTS</span></div>
+        <div><strong id="statMatches">—</strong><span>MATCHES PLAYED</span></div>
+        <div><strong>24/7</strong><span>THE ARENA IS OPEN</span></div>
+      </div>
+      <section class="wrap content-section">
+        <div class="section-heading"><div><div class="eyebrow">WHAT'S HAPPENING</div><h2>THE <span>ARENA</span> FEED</h2></div><button class="text-link" data-view="tournaments">VIEW ALL EVENTS ↗</button></div>
+        <div class="card-grid" id="homeTournaments"><div class="empty-state">Connect Supabase to load live tournaments.</div></div>
+      </section>
+      <section class="feature-band">
+        <div class="wrap feature-inner"><div><div class="eyebrow">BUILT FOR GUILD COMPETITION</div><h2>YOUR GUILD.<br><span>YOUR STORY.</span></h2></div><p>Register your guild, compete in organized matchups, submit results for review and make your way into H16 history.</p><button class="btn btn-primary" data-action="join">CREATE YOUR ACCOUNT ↗</button></div>
+      </section>
+    </section>
+
+    <section class="view wrap page-view" id="view-guilds">
+      <div class="page-heading"><div class="eyebrow">THE COMMUNITY</div><h1>GUILD <span>DIRECTORY</span></h1><p>Find your rivals. Discover the squads shaping the H16 arena.</p></div>
+      <div class="toolbar"><input id="guildSearch" class="field search-field" placeholder="Search guild name or tag..."><button class="btn btn-primary" data-action="guild">REGISTER GUILD</button></div>
+      <div class="card-grid" id="guildList"><div class="empty-state">Loading guilds...</div></div>
+    </section>
+
+    <section class="view wrap page-view" id="view-tournaments">
+      <div class="page-heading"><div class="eyebrow">PROVE YOUR SKILL</div><h1>TOURNAMENT <span>ZONE</span></h1><p>Follow upcoming events and track the competition.</p></div>
+      <div class="toolbar"><div class="filter-pills"><button class="filter active" data-filter="all">ALL</button><button class="filter" data-filter="upcoming">UPCOMING</button><button class="filter" data-filter="live">LIVE</button><button class="filter" data-filter="completed">COMPLETED</button></div><button class="btn btn-primary hidden" id="createTournamentBtn" data-action="tournament">+ CREATE EVENT</button></div>
+      <div class="card-grid" id="tournamentList"><div class="empty-state">Loading tournaments...</div></div>
+    </section>
+
+    <section class="view wrap page-view" id="view-leaderboard">
+      <div class="page-heading"><div class="eyebrow">RANKED BY PERFORMANCE</div><h1>H16 <span>LEADERBOARD</span></h1><p>Every point counts. Every victory moves you up.</p></div>
+      <div class="panel table-panel"><div class="panel-head"><h3>TOP GUILDS</h3><span class="live-label">● LIVE RANKINGS</span></div><div class="table-scroll"><table><thead><tr><th>RANK</th><th>GUILD</th><th>WINS</th><th>LOSSES</th><th>POINTS</th></tr></thead><tbody id="leaderboardRows"><tr><td colspan="5">Loading rankings...</td></tr></tbody></table></div></div>
+    </section>
+
+    <section class="view wrap page-view" id="view-hall">
+      <div class="page-heading"><div class="eyebrow">LEGENDS NEVER FADE</div><h1>HALL OF <span>FAME</span></h1><p>Celebrating the guilds and players who made H16 history.</p></div>
+      <div class="card-grid" id="hallList"><div class="empty-state">Loading champions...</div></div>
+    </section>
+
+    <section class="view wrap page-view" id="view-dashboard">
+      <div class="page-heading"><div class="eyebrow">YOUR CONTROL CENTER</div><h1>PLAYER <span>DASHBOARD</span></h1><p>Manage your profile, guild and competition activity.</p></div>
+      <div class="dashboard-grid">
+        <aside class="panel profile-panel"><div class="profile-avatar" id="profileAvatar">H16</div><h3 id="profileName">Player</h3><p id="profileEmail"></p><span class="role-chip" id="profileRole">MEMBER</span><button class="btn btn-outline full" data-action="guild">REGISTER A GUILD</button></aside>
+        <div class="panel dashboard-main"><div class="panel-head"><h3>MY OVERVIEW</h3><span class="muted" id="dashboardStatus">Connected account</span></div><div class="mini-stats"><div><b id="myGuildCount">0</b><span>MY GUILDS</span></div><div><b id="myMatches">0</b><span>MY MATCHES</span></div><div><b id="myWins">0</b><span>WINS</span></div></div><div class="panel-subhead"><h3>MY GUILDS</h3></div><div id="myGuilds" class="stack-list">No guilds registered yet.</div><div class="panel-subhead"><h3>RECENT MATCHES</h3></div><div id="myMatchList" class="stack-list">No match activity yet.</div></div>
+      </div>
+      <div class="panel admin-panel hidden" id="adminPanel"><div class="panel-head"><h3>ADMIN CONTROL</h3><span class="role-chip">ADMIN</span></div><p>Review pending guilds and tournament submissions.</p><div id="adminQueue" class="stack-list"></div></div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><a class="brand" href="#" data-view="home"><span class="brand-mark">H<span>16</span></span><span class="brand-name">TOURNAMENT <b>HUB</b></span></a><p>BUILT FOR COMPETITION. UNITED BY THE GAME.</p><span>© <span id="year"></span> H16 TOURNAMENT HUB</span></div></footer>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal panel"><button class="modal-close" id="modalClose">×</button><div class="eyebrow">H16 TOURNAMENT HUB</div><h2 id="modalTitle">WELCOME TO H16</h2><p id="modalDesc" class="muted">Enter the arena.</p><form id="modalForm"><div id="modalFields"></div><button class="btn btn-primary full btn-large" id="modalSubmit">CONTINUE ↗</button></form><div class="modal-foot" id="modalFoot"></div><div class="form-message" id="formMessage"></div></div>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
